@@ -45,6 +45,9 @@ def upload_file(file_path, problem, user):
     payload = process_file(file_path, problem)
     response = requests.post(submit_url, json=payload, cookies=user.cookie)
 
+    if not response:
+        raise Exception('Problem not found!')
+
     return get_submission_id(response)
     
 
