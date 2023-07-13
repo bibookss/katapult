@@ -1,6 +1,7 @@
 from auth import auth
 from test import test
 from dotenv import dotenv_values
+from colorama import Fore
 from upload import upload_file, get_submission_status, display_submission_status
 import argparse
 import sys
@@ -27,13 +28,23 @@ if __name__ == "__main__":
     try:
         user = auth(username, password)
         
-        if args.t or args.ts:
+        if args.t:
             test_case_res = test(program_file, problem_name)
 
-        if args.s or args.ts:
+        if args.s:
             submission_id = upload_file(program_file, problem_name, user)
             submission = get_submission_status(submission_id, user)
             display_submission_status(submission)
+
+        if args.ts:
+            test_case_res = test(program_file, problem_name)
+            
+            if test_case_res == True:
+                submission_id = upload_file(program_file, problem_name, user)
+                submission = get_submission_status(submission_id, user)
+                display_submission_status(submission)
+            else:
+                print(Fore.RESET + '\nSome sample test cases failed. Code will not be submitted.')
 
         if not args.t and not args.s and not args.ts:
             sys.exit('Usage: katapult [-t] [-s] [-ts] <path/to/file> <problem_name>')

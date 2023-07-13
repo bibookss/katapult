@@ -41,8 +41,8 @@ def get_test_cases(url):
     if len(test_cases) > 0:
         test_cases = parse_test_cases(test_cases)
     else:
-        sys.exit('This problem does not provide sample test cases.')
-
+        print('This problem does not provide sample test cases.')
+        return None
 
     return test_cases
 

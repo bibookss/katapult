@@ -8,6 +8,9 @@ def test(file_name, problem):
 
     test_cases = get_test_cases(f'https://open.kattis.com/problems/{problem}')
 
+    if test_cases == None:
+        return True
+
     print('Running Sample Test Cases:')
 
     passed_all = True
@@ -27,8 +30,8 @@ def test(file_name, problem):
   
 
     if passed_all:
-        print(Fore.GREEN + 'Result: Passed All Sample Test Cases!')
+        print(Fore.GREEN + 'Result: Passed All Sample Test Cases!\n')
     else:
-        print(Fore.RED + f'Result: Failed {failed_ctr} Test Cases :(')
+        print(Fore.RED + f'Result: Failed {failed_ctr} Test Cases :(\n')
 
     return passed_all

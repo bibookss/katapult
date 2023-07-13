@@ -42,7 +42,7 @@ def get_submission_id(response):
     return submission_id
 
 def upload_file(file_path, problem, user):
-    print(Fore.RESET + '\nSubmitting Code ...', end='', flush=True)
+    print(Fore.RESET + 'Submitting Code ...', end='', flush=True)
 
     submit_url = f'https://open.kattis.com/problems/{problem}/submit'
     payload = process_file(file_path, problem)
@@ -90,4 +90,4 @@ def display_submission_status(submission_status):
     
     print(f'Language: {submission_status["lang"]}')
     print(f'CPU: {submission_status["cpu"]}')
-    print(f'Test Cases: {submission_status["testcases"]}')
+    print(f'Test Cases: {submission_status["testcases"]}\n')
