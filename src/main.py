@@ -3,7 +3,6 @@ from test import test
 from dotenv import dotenv_values
 from colorama import Fore
 from upload import upload_file, get_submission_status, display_submission_status
-import argparse
 import sys
 
 if __name__ == "__main__":    
