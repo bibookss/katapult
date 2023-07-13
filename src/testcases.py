@@ -32,13 +32,13 @@ def get_test_cases(url):
         sys.exit('An error occured getting test cases.')
 
     problem_page = html_page(response)
-    test_cases = problem_page.find_all('pre')
+    table_elements = problem_page.select('table.sample')
+    test_cases = []
 
-    search_phrase = 'Sample Input'
-    has_test_cases = problem_page.find_all(
-        text=lambda text: text and search_phrase.lower() in text.lower())
-    
-    if has_test_cases:
+    for table_element in table_elements:
+        test_cases.extend(table_element.select('pre'))
+ 
+    if len(test_cases) > 0:
         test_cases = parse_test_cases(test_cases)
     else:
         sys.exit('This problem does not provide sample test cases.')

@@ -4,11 +4,12 @@ from testcases import get_test_cases
 from colorama import Fore
 
 def test(file_name, problem):
-    print('Running Sample Test Cases:')
-
     compile(file_name)
 
     test_cases = get_test_cases(f'https://open.kattis.com/problems/{problem}')
+
+    print('Running Sample Test Cases:')
+
     passed_all = True
     failed_ctr = 0
 

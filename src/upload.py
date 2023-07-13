@@ -2,6 +2,7 @@ import requests
 import re
 import os
 import time
+from colorama import Fore
 from utils import html_page
 
 def process_file(file_path, problem):
@@ -41,6 +42,8 @@ def get_submission_id(response):
     return submission_id
 
 def upload_file(file_path, problem, user):
+    print(Fore.RESET + 'Submitting Code:')
+
     submit_url = f'https://open.kattis.com/problems/{problem}/submit'
     payload = process_file(file_path, problem)
     response = requests.post(submit_url, json=payload, cookies=user.cookie)

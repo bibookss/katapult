@@ -7,14 +7,17 @@ import subprocess
 def compile(file_path): 
     curr_dir = os.getcwd()
     name, extension = os.path.basename(file_path).split('.')
-    compile_command = ''
+    
+    compile_commands = {
+        'cpp': f'g++ {curr_dir}/{file_path} -o {curr_dir}/{name}',
+        'java': f'javac {curr_dir}/{file_path}',
+        'py': None
+    }
 
-    if extension == 'cpp':
-        compile_command = f'g++ {curr_dir}/{file_path} -o {curr_dir}/{name}'
-    elif extension == 'java':
-        compile_command = f'javac {curr_dir}/{file_path}'
-    elif extension == 'py':
-        return
+    if extension in compile_commands:
+        compile_command = compile_commands[extension]
+        if compile_command is None:
+            return
     else:
         sys.exit('Error: Invalid File Type!')
 
@@ -31,15 +34,15 @@ def execute(file_path, input_str):
     curr_dir = os.getcwd()
     path = os.path.dirname(file_path)
     name, extension = os.path.basename(file_path).split('.')
-    run_command = []
 
-    
-    if extension == 'cpp':
-        run_command = [f'{curr_dir}/{path}/{name}']
-    elif extension == 'java':
-        run_command = ['java', '-cp', f'{curr_dir}/{path}', name]
-    elif extension == 'py':
-        run_command = ['python3', f'{curr_dir}/{file_path}']
+    run_commands = {
+        'cpp': [f'{curr_dir}/{path}/{name}'],
+        'java': ['java', '-cp', f'{curr_dir}/{path}', name],
+        'py': ['python3', f'{curr_dir}/{file_path}']    
+    }
+
+    if extension in run_commands:
+        run_command = run_commands[extension]
     else:
         sys.exit('Error: Invalid File Type!')
 
