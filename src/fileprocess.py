@@ -59,3 +59,32 @@ def execute(file_path, input_str):
         sys.exit(f'Error: {stderr}')
         
     return stdout
+
+def parse_code(file_path, problem):
+    file_name = os.path.basename(file_path)
+    language = file_name.split('.')[-1]
+
+    language_map = {
+        'py': 'Python 3',
+        'cpp': 'C++',
+        'java': 'Java',
+        'c': 'C',
+    }
+
+    with open(file_path, 'r') as file:
+        code = file.read()
+        payload = {
+            "files": [
+                {
+                    "filename": file_name,
+                    "code": code,
+                    "id": 0,
+                    "session": None
+                }
+            ],
+            "language": language_map[language],
+            "mainclass": file_name,
+            "problem": problem,
+        }
+    
+    return payload
