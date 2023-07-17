@@ -4,6 +4,7 @@ from dotenv import dotenv_values
 from colorama import Fore
 from upload import upload_file, get_submission_status, display_submission_status
 import sys
+import argparse
 
 if __name__ == "__main__":    
     config = dotenv_values('.env')
