@@ -4,35 +4,7 @@ import os
 import time
 from colorama import Fore
 from utils import html_page
-
-def process_file(file_path, problem):
-    file_name = os.path.basename(file_path)
-    language = file_name.split('.')[-1]
-
-    language_map = {
-        'py': 'Python 3',
-        'cpp': 'C++',
-        'java': 'Java',
-        'c': 'C',
-    }
-
-    with open(file_path, 'r') as file:
-        code = file.read()
-        payload = {
-            "files": [
-                {
-                    "filename": file_name,
-                    "code": code,
-                    "id": 0,
-                    "session": None
-                }
-            ],
-            "language": language_map[language],
-            "mainclass": file_name,
-            "problem": problem,
-        }
-    
-    return payload
+from fileprocess import parse_code
 
 def get_submission_id(response):
     pattern = r"Submission ID: (\d+)"
@@ -41,11 +13,11 @@ def get_submission_id(response):
 
     return submission_id
 
-def upload_file(file_path, problem, user):
+def submit(file_path, problem, user):
     print(Fore.RESET + 'Submitting Code ...', end='', flush=True)
 
     submit_url = f'https://open.kattis.com/problems/{problem}/submit'
-    payload = process_file(file_path, problem)
+    payload = parse_code(file_path, problem)
     response = requests.post(submit_url, json=payload, cookies=user.cookie)
 
     if not response:
