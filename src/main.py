@@ -2,7 +2,7 @@ from auth import auth
 from test import test
 from dotenv import dotenv_values
 from colorama import Fore
-from upload import upload_file, get_submission_status, display_submission_status
+from submit import submit, get_submission_status, display_submission_status
 import sys
 import argparse
 
@@ -32,7 +32,7 @@ if __name__ == "__main__":
             test_case_res = test(program_file, problem_name)
 
         if args.s:
-            submission_id = upload_file(program_file, problem_name, user)
+            submission_id = submit(program_file, problem_name, user)
             submission = get_submission_status(submission_id, user)
             display_submission_status(submission)
 
