@@ -27,7 +27,7 @@ def submit(file_path, problem, user):
     
 
 def get_submission_status(submission_id, user):
-    time.sleep(10)
+    time.sleep(5)
 
     url = f'https://open.kattis.com/submissions/{submission_id}'
     response = requests.get(url, cookies=user.cookie)
@@ -43,6 +43,7 @@ def get_submission_status(submission_id, user):
     testcases = submission[0].find('td', {'data-type': 'testcases'}).text.strip()
 
     return {
+        'id': submission_id,
         'time': ttime,
         'status': status,
         'lang': lang,
@@ -52,14 +53,21 @@ def get_submission_status(submission_id, user):
 
 def display_submission_status(submission_status):
     print('\rSubmission Status:', flush=True)
-    print(f'Time: {submission_status["time"]}')
+    print("ID:".ljust(15), end=" ")
+    print(submission_status["id"])
+    print("Time:".ljust(15), end=" ")
+    print(submission_status["time"])
+
     status = submission_status["status"]
-    
+    print("Status:".ljust(15), end=" ")
     if status == "Accepted":
-        print(f'Status: {Fore.GREEN}{status}{Fore.RESET}')
+        print(f'{Fore.GREEN}{status}{Fore.RESET}')
     else:
-        print(f'Status: {Fore.RED}{status}{Fore.RESET}')
+        print(f'{Fore.RED}{status}{Fore.RESET}')
     
-    print(f'Language: {submission_status["lang"]}')
-    print(f'CPU: {submission_status["cpu"]}')
-    print(f'Test Cases: {submission_status["testcases"]}\n')
+    print("Language:".ljust(15), end=" ")
+    print(submission_status["lang"])
+    print("CPU:".ljust(15), end=" ")
+    print(submission_status["cpu"])
+    print("Test Cases:".ljust(15), end=" ")
+    print(submission_status["testcases"])
