@@ -1,5 +1,9 @@
 import requests
-from user import User
+
+class User:
+    def __init__(self, user, cookie=None):
+        self.user = user
+        self.cookie = cookie
 
 def auth(username, password):
 	url = 'https://open.kattis.com/login/email?'
