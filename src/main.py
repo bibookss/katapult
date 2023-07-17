@@ -40,7 +40,7 @@ if __name__ == "__main__":
             test_case_res = test(program_file, problem_name)
             
             if test_case_res == True:
-                submission_id = upload_file(program_file, problem_name, user)
+                submission_id = submit(program_file, problem_name, user)
                 submission = get_submission_status(submission_id, user)
                 display_submission_status(submission)
             else:
